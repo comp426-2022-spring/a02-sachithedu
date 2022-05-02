@@ -1,24 +1,11 @@
+import { coinFlip, coinFlips, countFlips, flipACoin} from "./modules/coin.mjs";
+import minimist from "minimist";
+const myArg = (minimist)(process.argv.slice(2))
 
-import minimist from 'minimist';
-import {coinFlips, countFlips} from './modules/coin.mjs';
-
-console.log("In flips.js")
-console.log(process.argv)
-const args = minimist(process.argv.slice(2))
-
-if (args.number == undefined) {
-    args.number = 1;
+let number = myArg.number;
+if (!Number.isInteger(number)) {
+    number = 1;
 }
-
-let array = coinFlips(args.number);
-
-if (args.number == 1) {
-    if (countFlips(array).heads != 0) {
-        console.log("['heads'] {heads: " + countFlips(array).heads + "}")
-    } else {
-        console.log("['tails'] {tails: " + countFlips(array).tails + "}")
-    }
-} else {
-    console.log(array);
-    console.log(countFlips(array));
-}
+const flips = coinFlips(number);
+console.log(flips);
+console.log(countFlips(flips));
